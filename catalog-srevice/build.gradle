@@ -1,28 +1,28 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.5.4'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'java' // 애플리케이션의 컴파일, 빌드, 테스트 작업을 수립하고 그래들에 자바 지원을 제공
+	id 'org.springframework.boot' version '3.5.4' // 그래들에서 스프링부트의 지원을 제공하고 사용할 버전 선언
+	id 'io.spring.dependency-management' version '1.1.7' // 스프링에 대한 의존성 관리 기능을 제공
 }
 
-group = 'com.polarbookshop'
-version = '0.0.1-SNAPSHOT'
+group = 'com.polarbookshop' // 카탈로그 서비스 프로젝트의 그룹 id
+version = '0.0.1-SNAPSHOT' // 애플리케이션의 버전, 기본적으로 0.0.1-snapshot
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(17) // 프로젝트 빌드 시 사용할 자바 버전
 	}
 }
 
 repositories {
-	mavenCentral()
+	mavenCentral() // 의존 라이브러리를 검색할 아티팩트 저장소
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+dependencies { // 의존 라이브러리를 검색할 아티팩트 저장소
+	implementation 'org.springframework.boot:spring-boot-starter-web' // 스프링 mvc로 웹 애플리케이션을 빌드하는 데 필요한 라이브러리를 제공하며 임베디드 서버로는 기본 설정 상 톰캣이 포함되어있음
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 스프링 테스트, junit, 어서트j, 모키토를 포함함 애플리케이션을 테스트 할 수 있는 여러 라이브러리 및 유틸리티 제공
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+	useJUnitPlatform() // junit 5가 제공하는 junit 플랫폼으로 테스트하도록 설정
 }
