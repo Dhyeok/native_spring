@@ -1,5 +1,6 @@
 server:
   port: 9001 # http port
+  address: 0.0.0.0
   tomcat:
     connection-timeout: 2s # 연결 타임아웃 : 클라이언트에서 tcp 연결을 수락하고 실제로 http 요청을 받기까지 톰캣이 최대한 기다리는 시간, dos 어택 방지 도움, default 20s 하지만 msa구조에선느 너무 김
     keep-alive-timeout: 15s # 새로운 http 요청을 기다리는 동안 연결을 유지하는 시간
