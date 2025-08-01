@@ -24,9 +24,6 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web' // 스프링 mvc로 웹 애플리케이션을 빌드하는 데 필요한 라이브러리를 제공하며 임베디드 서버로는 기본 설정 상 톰캣이 포함되어있음
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.cloud:spring-cloud-starter-config'
-	implementation 'org.springframework.retry:spring-retry'
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
@@ -34,9 +31,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
-bootRun {
-	systemProperty 'spring.profiles.active', 'testdata'
-}
 
 tasks.named('test') {
 	useJUnitPlatform() // junit 5가 제공하는 junit 플랫폼으로 테스트하도록 설정
