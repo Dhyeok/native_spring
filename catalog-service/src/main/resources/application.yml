@@ -7,3 +7,6 @@ server:
     threads:
       max: 50 # 최대 요청 처리 스레드 수 default 200
       min-spare: 5 # 풀에 항상 유지해야 하는 최소의 스레드 수 default 100
+
+polar:
+  greeting: Welcome to the local book catalog!

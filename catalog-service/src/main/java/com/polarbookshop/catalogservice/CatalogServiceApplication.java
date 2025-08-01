@@ -2,6 +2,7 @@ package com.polarbookshop.catalogservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
 /* 스프링 설정 클래스를 정의하고 컴포넌트 스캔과 스프링 부트 자동 설정을 실행한다.
@@ -10,6 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  @ComponentScan을 사용하면 컴포넌트 검색을 통해 빈을 찾아 스프링 콘텍스트에 자동으로 등록
  @EnableAutoConfiguration은 스프링 부트에서 제공하는 자동 설정 기능을 활성화
 */
+
+@ConfigurationPropertiesScan // 스프링 컨텍스트에 설정 데이터 빈을 로드
+
 
 public class CatalogServiceApplication {
 
