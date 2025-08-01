@@ -17,10 +17,11 @@ jobs:
         with: # 사용할 버전, 배포, 캐시 유형을 정의한다.
           distribution: temurin
           java-version: 17
-          cache: gradle
+          cache: gradle # 캐싱 전략 정의
 
       - name: Build, unit tests and integration tests
         run: |
+          cd catalog-service
           chmod +x gradlew 
           ./gradlew build
 
