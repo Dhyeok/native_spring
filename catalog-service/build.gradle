@@ -31,6 +31,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
+bootRun {
+	systemProperty 'spring.profiles.active', 'testdata'
+}
 
 tasks.named('test') {
 	useJUnitPlatform() // junit 5가 제공하는 junit 플랫폼으로 테스트하도록 설정
