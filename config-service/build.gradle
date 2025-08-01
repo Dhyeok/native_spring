@@ -1,0 +1,34 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+}
+
+group = 'com.polarbookshop'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+description = 'Provides functionality for centralizing the application configuration.'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2021.0.9") // 사용할 스프링 클라우드 버전 정의
+}
+
+dependencies {
+    implementation 'org.springframework.cloud:spring-cloud-config-server' // 스프링 웹을 토대로 해서 설정 서버를 구축할 수 있는 라이브러리와 유틸리티를 제공한다.
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' // 스프링 테스트, junit, 어서트j, 모키토를 포함해 애플리케이션을 테스트 할수있는 여러 라이브러리 및 유틸리티를 제공한다. 모든 스프링부트 프로젝트에 자동으로 포함
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}" // 스프링 클라우드 의존성 관리를 위한 BOM
+    }
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

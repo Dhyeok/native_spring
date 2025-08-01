@@ -1,0 +1,21 @@
+server:
+  port: 8888 # 컨피그 서비스 애플리케이션이 듣는 포트
+  tomcat:
+    connection-timeout: 2s
+    keep-alive-timeout: 15s
+    threads:
+      max: 50
+      min-spare: 5
+
+spring:
+  application:
+    name: config-service # 현재 애플리케이션의 이름
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Dhyeok/config-repo.git # 설정 데이터 저장 백엔드로 사용할 원격 깃 저장소의 url
+          default-label: main # 서버는 이 설정에 따라 기본적으로 main 브랜치에서 설정 데이터를 반환
+          timeout: 5
+          clone-on-start: true
+          force-pull: true
