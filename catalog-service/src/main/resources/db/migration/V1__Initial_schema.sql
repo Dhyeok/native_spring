@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS book;
 CREATE TABLE book (
       id                  BIGSERIAL PRIMARY KEY NOT NULL, -- 테이블의 기본키, 데이터베이스는 연속되는 숫자를 생성한다.(bigserial 유형)
       author              varchar(255) NOT NULL,
