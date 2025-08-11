@@ -5,6 +5,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
+
 public record Book ( //도메인 모델은 불가변 객체인 레코드로 구현
 
     @Id // 이 필드를 엔티티에 대한 기본 키로 식별한다.
