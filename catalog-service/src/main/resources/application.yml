@@ -34,8 +34,7 @@ spring:
   sql:
     init:
       mode: always         # 외부 DB에서도 schema.sql 실행
-      schema-locations: catalog-service/src/main/resources/db/migration/V1__Initial_schema.sql # 경로 지정(기본값: classpath:schema.sql)
-      encoding: UTF-8
+      schema-locations: classpath:db/migration/V1__Initial_schema.sql
 
 management:
   endpoints:
