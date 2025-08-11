@@ -31,6 +31,11 @@ spring:
     hikari:
       connection-timeout: 2000 # 풀에서 연결 객체를 얻기위해 기다려야 하는 최대시간(밀리초)
       maximum-pool-size: 5 # 히카리cp가 풀에 최대한으로 유지할 수 있는 연결 객체의 수
+  sql:
+    init:
+      mode: always         # 외부 DB에서도 schema.sql 실행
+      schema-locations: catalog-service/src/main/resources/db/migration/V1__Initial_schema.sql # 경로 지정(기본값: classpath:schema.sql)
+      encoding: UTF-8
 
 management:
   endpoints:
