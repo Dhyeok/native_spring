@@ -33,6 +33,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.retry:spring-retry'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc' // 스프링 데이터 및 jdbc를 사용해 관계형 데이터베이스에 대한 데이터 지속성을 위해 필요한 라이브러리 제공
+
+	runtimeOnly 'org.postgresql:postgresql' // 데이터베이스에 연결할 수 있도록 jdbc 드라이버를 제공
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 

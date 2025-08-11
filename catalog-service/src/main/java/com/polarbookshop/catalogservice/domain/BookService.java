@@ -35,10 +35,14 @@ public class BookService {
         return bookRepository.findByIsbn(isbn)
                 .map(existingBook -> {
                     var bookToUpdate = new Book( // 책을 수정할 때 개체 식별자인 isbn 코들르 제외한 코든 필드를 수정할 수 있음
+                            existingBook.id(), // 기존 책의 식별자를 사용
                             existingBook.isbn(),
                             book.title(),
                             book.author(),
-                            book.price());
+                            book.price(),
+                            existingBook.createDate(), // 기존 책 레코드의 생성 날짜 사용
+                            existingBook.lastModifiedDate(), // 기존 책 레코드의 마지막 수정 날짜 사용, 업데이트가 성공하면 스프링 데이터에 의해 자동으로 변경된다.
+                            existingBook.version()); // 기존 책 버전 사용시 업데이트가 성공하면 자동으로 증가
                     return bookRepository.save(bookToUpdate);
                 })
                 .orElseGet(() -> addBookToCatalog(book)); // 카탈로그에 존재하지 않는 책을 수정하려고 하면 새로운 책을 만듦
