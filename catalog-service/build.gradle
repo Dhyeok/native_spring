@@ -24,6 +24,7 @@ repositories {
 
 ext {
 	set('springCloudVersion', "2021.0.9")
+	set('testcontainersVersion', "1.19.8")
 }
 
 
@@ -34,7 +35,7 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.retry:spring-retry'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc' // 스프링 데이터 및 jdbc를 사용해 관계형 데이터베이스에 대한 데이터 지속성을 위해 필요한 라이브러리 제공
-
+	implementation 'org.flywaydb:flyway-core'
 
 	runtimeOnly 'org.postgresql:postgresql' // 데이터베이스에 연결할 수 있도록 jdbc 드라이버를 제공
 
@@ -42,11 +43,13 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 스프링 테스트, junit, 어서트j, 모키토를 포함함 애플리케이션을 테스트 할 수 있는 여러 라이브러리 및 유틸리티 제공
 	testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
+	testImplementation 'org.testcontainers:postgresql'
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
 	}
 }
 

@@ -18,7 +18,7 @@ public record Book ( //도메인 모델은 불가변 객체인 레코드로 구�
     Long id,
 
     @NotBlank(message = "The book ISBN must be defined.")
-        @Pattern(regexp = "^([0-9]{10}|[0-9]{13})$", message = "The ISBN format must be valid.")// 이 필드는 주어진 정규표현식의 값과 일치하는 형식을 가져와야 한다(표준 isbn 형식)
+            @Pattern(regexp = "^([0-9]{10}|[0-9]{13})$", message = "The ISBN format must be valid.")// 이 필드는 주어진 정규표현식의 값과 일치하는 형식을 가져와야 한다(표준 isbn 형식)
     String isbn,
 
     @NotBlank(message = "The book title must be defined.")
