@@ -8,5 +8,22 @@ server:
       max: 50 # 최대 요청 처리 스레드 수 default 200
       min-spare: 5 # 풀에 항상 유지해야 하는 최소의 스레드 수 default 100
 
+spring:
+  application:
+    name: catalog-service
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: http://localhost:8888
+    #  request-connect-timeout: 5000 # 5s
+    #  request-read-timeout: 5000 # 5s
+    #  fail-fast: false # In production, set to true
+    #  retry:
+    #    max-attempts: 6
+    #    initial-interval: 1000 # 1s
+    #    max-interval: 2000 # 2s
+    #    multiplier: 1.1
+
 polar:
   greeting: Welcome to the local book catalog!

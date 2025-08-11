@@ -21,15 +21,29 @@ repositories {
 	mavenCentral()
 }
 
+
+ext {
+	set('springCloudVersion', "2021.0.9")
+}
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web' // 스프링 mvc로 웹 애플리케이션을 빌드하는 데 필요한 라이브러리를 제공하며 임베디드 서버로는 기본 설정 상 톰캣이 포함되어있음
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 스프링 테스트, junit, 어서트j, 모키토를 포함함 애플리케이션을 테스트 할 수 있는 여러 라이브러리 및 유틸리티 제공
 	testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
 
 bootRun {
 	systemProperty 'spring.profiles.active', 'testdata'
