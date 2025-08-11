@@ -46,7 +46,7 @@ public record Book ( //도메인 모델은 불가변 객체인 레코드로 구�
 
 ){
     public static Book of(String isbn, String title, String author, Double price) {
-        return new Book(null, isbn, title, author, price, 0); // id가 널이고 버전이 0이면 새로운 엔티티로 인식한다.
+        return new Book(null, isbn, title, author, price, null, null, 0); // id가 널이고 버전이 0이면 새로운 엔티티로 인식한다.
     }
 
 }
