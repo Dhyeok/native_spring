@@ -1,5 +1,5 @@
 server:
-  port: 9001 # 컨피그 서비스 애플리케이션이 듣는 포트
+  port: 8888 # 컨피그 서비스 애플리케이션이 듣는 포트
   tomcat:
     connection-timeout: 2s
     keep-alive-timeout: 15s
