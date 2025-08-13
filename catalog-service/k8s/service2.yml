@@ -24,7 +24,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: catalog-service
+    app: config-service
   ports:
     - protocol: TCP
       port: 8888
@@ -45,3 +45,25 @@ spec:
     - protocol: TCP
       port: 5432
       targetPort: 5432
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: catalog-service-ingress
+  namespace: polar-service
+  annotations:
+    kubernetes.io/ingress.class: "traefik"  # Traefik Ingress Controller 사용
+spec:
+  rules:
+    - host: catalog.service.com   # 접속할 도메인
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: catalog-service   # Service 이름
+                port:
+                  number: 80         # 서비스가 노출하는 포트
+
