@@ -20,7 +20,7 @@ custom_build(
 
 
 # Deploy
-k8s_yaml(['k8s/polar-deployment.yml', 'k8s/service2.yml'])
+k8s_yaml(['k8s/polar-deployment.yml', 'k8s/service.yml'])
 
 # Manage
 k8s_resource('catalog-service', image='ghcr.io/dhyeok/catalog-service:tilt-build')
