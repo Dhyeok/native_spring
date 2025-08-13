@@ -67,6 +67,7 @@ jobs:
 
       - name: Build container image
         run: |
+          cd catalog-service
           chmod +x gradlew
           ./gradlew bootBuildImage \ # 컨테이너 이미지를 빌드하고 릴리스 후보를 위한 이름을 정의하기위해 스프링 부트의 빌드팩 통합을 사용
             --imageName ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
