@@ -1,13 +1,23 @@
 # Build
+#custom_build(
+#    # Name of the container image
+#    ref = 'catalog-service',
+#    # Command to build the container image
+#    # On Windows, replace $EXPECTED_REF with %EXPECTED_REF%
+#    command = './gradlew bootBuildImage --imageName $EXPECTED_REF',
+#    # Files to watch that trigger a new build
+#    deps = ['build.gradle', 'src']
+#)
+
 custom_build(
-    # Name of the container image
-    ref = 'catalog-service',
-    # Command to build the container image
-    # On Windows, replace $EXPECTED_REF with %EXPECTED_REF%
-    command = './gradlew bootBuildImage --imageName $EXPECTED_REF',
-    # Files to watch that trigger a new build
-    deps = ['build.gradle', 'src']
+    # GHCR 이미지 경로
+    ref='ghcr.io/dhyeok/catalog-service:tilt-build',
+    # Gradle로 빌드 + GHCR에 푸시
+    command='./gradlew bootBuildImage --imageName $EXPECTED_REF --publishImage',
+    deps=['build.gradle', 'src']
 )
+
+
 
 # Deploy
 k8s_yaml(['k8s/polar-deployment.yml', 'k8s/service2.yml'])
