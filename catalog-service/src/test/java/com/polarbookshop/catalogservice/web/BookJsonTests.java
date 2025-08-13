@@ -41,7 +41,6 @@ class BookJsonTests {
         assertThat(jsonContent).extractingJsonPathNumberValue("@.version")
                 .isEqualTo(book.version());
     }
-    }
 
     @Test
     void testDeserialize() throws Exception {
