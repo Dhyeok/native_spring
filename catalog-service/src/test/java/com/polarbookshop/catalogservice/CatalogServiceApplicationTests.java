@@ -71,7 +71,17 @@ class CatalogServiceApplicationTests {
 				.expectStatus().isCreated()
 				.expectBody(Book.class).value(book -> assertThat(book).isNotNull())
 				.returnResult().getResponseBody();
-		var bookToUpdate = Book.of(createdBook.isbn(), createdBook.title(), createdBook.author(), 7.95);
+		var bookToUpdate = new Book(
+				createdBook.id(),
+				createdBook.isbn(),
+				createdBook.title(),
+				createdBook.author(),
+				7.95,
+				createdBook.publisher(),
+				createdBook.createdDate(),
+				createdBook.lastModifiedDate(),
+				createdBook.version()
+		);
 
 		webTestClient
 				.put()
