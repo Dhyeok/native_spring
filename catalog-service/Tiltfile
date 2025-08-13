@@ -23,4 +23,5 @@ custom_build(
 k8s_yaml(['k8s/polar-deployment.yml', 'k8s/service2.yml'])
 
 # Manage
+k8s_resource('catalog-service', image='ghcr.io/dhyeok/catalog-service:tilt-build')
 #k8s_resource('catalog-service', port_forwards=['9001'])
