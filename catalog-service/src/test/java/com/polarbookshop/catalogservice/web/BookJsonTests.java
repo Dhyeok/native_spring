@@ -45,7 +45,9 @@ class BookJsonTests {
 
     @Test
     void testDeserialize() throws Exception {
-        var instant = Instant.parse("2021-09-07T22:50:37.135029Z");  // 1. 고정된 시간값 준비
+        // 1. 고정된 시간값 준비
+        var instant = Instant.parse("2021-09-07T22:50:37.135029Z");
+
         // 2. JSON 문자열 준비
         var content = """  
                 {
@@ -60,10 +62,13 @@ class BookJsonTests {
                     "version": 21
                 }
                 """;
+
         // 자바 텍스트 블록 기능을 사용해 json 객체를 정의
         assertThat(json.parse(content)) // json에서 자바 객체로의 변환을 확인 3. JSON을 Book 객체로 변환 후 비교
                 .usingRecursiveComparison()
-                .isEqualTo(new Book(394L, "1234567890", "Title", "Author", 9.90, "Polarsophia", instant, instant, 21));
-    }
+                .isEqualTo(new Book(
+                        394L, "1234567890", "Title", "Author", 9.90, "Polarsophia", instant, instant, 21
+                ));
+     }
 
 }
