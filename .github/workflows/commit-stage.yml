@@ -53,11 +53,17 @@ jobs:
         with:
           kubeconform: latest
 
+      - name: Check kubeconform
+        run: |
+          echo $PATH
+          ls -al ~/.arkade/bin
+          ~/.arkade/bin/kubeconform --version
+
       - name: Validate Kubernetes manifests
         run: |
+          export PATH=$HOME/.arkade/bin:$PATH
           cd catalog-service
           pwd
-          ls -al
           kubeconform --strict k8s
         
 
