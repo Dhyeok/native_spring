@@ -18,7 +18,7 @@ custom_build(
 
     # 빌드 후 k3d에 import까지 수행
     command='''
-        ./gradlew bootBuildImage --imageName $EXPECTED_REF --builder &&
+        ./gradlew bootBuildImage --imageName $EXPECTED_REF --builder paketobuildpacks/builder:base &&
         k3d image import $EXPECTED_REF --cluster mycluster
     ''',
 
