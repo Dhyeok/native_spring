@@ -19,7 +19,7 @@ custom_build(
     # 빌드 후 k3d에 import까지 수행
     command='''
         ./gradlew bootBuildImage --imageName ghcr.io/dhyeok/catalog-service:tilt-build &&
-        k3d image import'ghcr.io/dhyeok/catalog-service:tilt-build --cluster mycluster
+        k3d image import ghcr.io/dhyeok/catalog-service:tilt-build --cluster mycluster
     ''',
 
     # 변경 감지 파일 (변경 시 재빌드)
