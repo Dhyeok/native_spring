@@ -51,13 +51,17 @@ jobs:
       - name: Install tools
         uses: alexellis/arkade-get@master
         with:
-          kubeconform: latest
+          kubeconform: latest\
+
+      - name: Check k8s folder
+        run: |
+          pwd
+          ls -al    
 
       - name: Validate Kubernetes manifests
         run: |
           kubeconform --strict k8s
-
-          
+        
 
   package: # 잡의 고유 식별자
     name: Package and Publish
