@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: catalog-service
-          image: catalog-service:tilt-build
+          image: ghcr.io/dhyeok/catalog-service:tilt-build
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
