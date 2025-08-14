@@ -51,7 +51,7 @@ jobs:
       - name: Install tools
         uses: alexellis/arkade-get@master
         with:
-          kubeconform: latest\
+          kubeconform: latest
 
       - name: Check k8s folder
         run: |
