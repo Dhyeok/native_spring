@@ -37,10 +37,7 @@ k8s_yaml([
 ########################################
 # 이미지와 리소스 매핑
 ########################################
-k8s_resource(
-    'catalog-service',               # 리소스 이름 (Tilt UI 표시명)
-    image='catalog-service:tilt-build'  # custom_build의 ref 값
-)
+k8s_image('catalog-service:tilt-build')
 
 ########################################
 # (선택) Tilt UI 설정
