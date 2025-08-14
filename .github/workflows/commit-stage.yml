@@ -55,7 +55,7 @@ jobs:
 
       - name: Validate Kubernetes manifests
         run: |
-          kubeconform --strict k
+          kubeconform --strict k8s
 
           
 
