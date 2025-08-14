@@ -14,12 +14,12 @@
 ########################################
 custom_build(
     # 빌드 결과 이미지 이름 (로컬 태그)
-    ref='ghcr.io/dhyeok/catalog-service:tilt-build',
+    ref='ghcr.io/dhyeok/catalog-service',
 
     # 빌드 후 k3d에 import까지 수행
     command='''
-        ./gradlew bootBuildImage --imageName ghcr.io/dhyeok/catalog-service:tilt-build --builder paketobuildpacks/builder:base --publish false &&
-        k3d image import ghcr.io/dhyeok/catalog-service:tilt-build --cluster mycluster
+        ./gradlew bootBuildImage --imageName $EXPECTED_REF --builder &&
+        k3d image import $EXPECTED_REF --cluster mycluster
     ''',
 
     # 변경 감지 파일 (변경 시 재빌드)
