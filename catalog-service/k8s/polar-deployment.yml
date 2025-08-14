@@ -18,7 +18,7 @@ spec:
       containers:
         - name: catalog-service
           image: catalog-service:tilt-build
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
               exec:
