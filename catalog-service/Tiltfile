@@ -13,7 +13,10 @@ custom_build(
     # GHCR 이미지 경로
     ref='ghcr.io/dhyeok/catalog-service:tilt-build',
     # Gradle로 빌드 + GHCR에 푸시
-    command='./gradlew bootBuildImage --imageName $EXPECTED_REF --publishImage',
+    command='''
+    ./gradlew bootBuildImage --imageName $EXPECTED_REF --publishImage',
+    k3d image import $EXPECTED_REF --cluster mycluster
+    ''',
     deps=['build.gradle', 'src']
 )
 
