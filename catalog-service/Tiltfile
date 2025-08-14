@@ -9,22 +9,42 @@
 #    deps = ['build.gradle', 'src']
 #)
 
+########################################
+# Build & Import to k3d
+########################################
 custom_build(
-    # GHCR 이미지 경로
-    ref='ghcr.io/dhyeok/catalog-service:tilt-build',
-    # Gradle로 빌드 + GHCR에 푸시
+    # 빌드 결과 이미지 이름 (로컬 태그)
+    ref='catalog-service:tilt-build',
+
+    # 빌드 후 k3d에 import까지 수행
     command='''
-    ./gradlew bootBuildImage --imageName $EXPECTED_REF --publishImage',
-    k3d image import $EXPECTED_REF --cluster mycluster
+        ./gradlew bootBuildImage --imageName $EXPECTED_REF &&
+        k3d image import $EXPECTED_REF --cluster mycluster
     ''',
+
+    # 변경 감지 파일 (변경 시 재빌드)
     deps=['build.gradle', 'src']
 )
 
+########################################
+# Kubernetes 리소스 로드
+########################################
+k8s_yaml([
+    'k8s/polar-deployment.yml',
+    'k8s/service.yml'
+])
 
+########################################
+# 이미지와 리소스 매핑
+########################################
+k8s_resource(
+    'catalog-service',               # 리소스 이름 (Tilt UI 표시명)
+    image='catalog-service:tilt-build'  # custom_build의 ref 값
+)
 
-# Deploy
-k8s_yaml(['k8s/polar-deployment.yml', 'k8s/service.yml'])
-
-# Manage
-k8s_resource('catalog-service', image='ghcr.io/dhyeok/catalog-service:tilt-build')
-#k8s_resource('catalog-service', port_forwards=['9001'])
+########################################
+# (선택) Tilt UI 설정
+########################################
+# log를 항상 팔로우하고 빌드/배포 상태 보기 좋게 설정
+watch_file('build.gradle')
+watch_file('src')
