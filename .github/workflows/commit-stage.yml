@@ -53,18 +53,12 @@ jobs:
         with:
           kubeconform: latest
 
-      - name: Check kubeconform
-        run: |
-          echo $PATH
-          ls -al ~/.arkade/bin
-          ~/.arkade/bin/kubeconform --version
-
       - name: Validate Kubernetes manifests
         run: |
           export PATH=$HOME/.arkade/bin:$PATH
           cd catalog-service
           pwd
-          kubeconform --strict k8s
+          kubeconform --strict --debug k8s
         
 
   package: # 잡의 고유 식별자
