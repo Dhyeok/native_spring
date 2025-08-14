@@ -1,0 +1,76 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.18'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+}
+
+group = 'com.polarbookshop'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+description = 'Provides functionality for purchasing books.'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2021.0.9")
+	set('testcontainersVersion', "1.19.8")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc' // 리액티브 애플리케이션에서 스프링 데이터를 사용해 r2dbc로 관계형 데이터베이스에 데이터를 저장하기 위해 필요한 라이브러리를 제공
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // 자바 빈 유효성 검사 api를 사용해 객체의 유효성 검사를 할 때 필요한 라이브러리를 제공
+	implementation 'org.springframework.boot:spring-boot-starter-webflux' // 스프링 웹플럭스를 통해 리액티브 웹 애플리케이션을 구축하기 위한 라이브러리를 제공하며 네티를 기본 임베디드 서버로 포함
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.retry:spring-retry'
+
+	runtimeOnly 'org.flywaydb:flyway-core'
+	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.postgresql:r2dbc-postgresql'
+	runtimeOnly 'org.springframework:spring-jdbc'
+
+	// Only on Apple Silicon. Why it's necessary: https://github.com/netty/netty/issues/11020
+	// runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.101.Final:osx-aarch_64'
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 스프링 테스트, juinit, 어서트j, 모티토를 포함해 애플리케이션을 테스트할수있는 여러 라이브러리 및 유틸리티를 제공, 모든 스피링부트 프로젝트에 자동으로 포함
+	testImplementation 'io.projectreactor:reactor-test' // 프로젝트 리액터를 기반으로 작성된 리액티브 애플리케이션을 테스트하기 위한 유틸리티를 제공
+	testImplementation 'com.squareup.okhttp3:mockwebserver'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:postgresql'
+	testImplementation 'org.testcontainers:r2dbc' // 경량 도커 컨테이너를 사용해 애플리케이션을 테스트하기 위해 필요한 라이브러리를 제공한다. 특히 r2dbc 드라이버를 지원하는 postgresql용 테스트 컨테이너를 제공한다.
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+bootBuildImage {
+	builder = "docker.io/paketobuildpacks/builder-jammy-base"
+	imageName = "${project.name}"
+	environment = ["BP_JVM_VERSION": "17"]
+
+	docker {
+		publishRegistry {
+			username = project.findProperty("registryUsername")
+			password = project.findProperty("registryToken")
+			url = project.findProperty("registryUrl")
+		}
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
