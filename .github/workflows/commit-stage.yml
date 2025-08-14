@@ -57,8 +57,9 @@ jobs:
         run: |
           export PATH=$HOME/.arkade/bin:$PATH
           cd catalog-service
+          ls -R k8s
           pwd
-          kubeconform --strict --debug k8s
+          kubeconform --strict --debug --verbose k8s
         
 
   package: # 잡의 고유 식별자
