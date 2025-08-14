@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: catalog-service
-          image: catalog-service:latest
+          image: catalog-service:tilt-build
           imagePullPolicy: Always
           lifecycle:
             preStop:
