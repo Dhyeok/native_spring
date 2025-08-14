@@ -45,6 +45,20 @@ jobs:
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }} # 이전단계 결과의 리포트를 가져옴
 
+      - name: Setup tools
+        uses: alexellis/setup-arkade@v3
+
+      - name: Install tools
+        uses: alexellis/arkade-get@master
+        with:
+          kubeconform: latest
+
+      - name: Validate Kubernetes manifests
+        run: |
+          kubeconform --strict k
+
+          
+
   package: # 잡의 고유 식별자
     name: Package and Publish
     if: ${{ github.ref == 'refs/heads/main' }} # 잡을 main 브랜치에 대해서만 실행한다.
