@@ -53,14 +53,11 @@ jobs:
         with:
           kubeconform: latest
 
-      - name: Check k8s folder and cd
-        run: |
-          pwd
-          ls -al
-          cd catalog-service
-
       - name: Validate Kubernetes manifests
         run: |
+          cd catalog-service
+          pwd
+          ls -al
           kubeconform --strict k8s
         
 
