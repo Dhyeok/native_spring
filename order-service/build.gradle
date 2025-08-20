@@ -32,10 +32,10 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.retry:spring-retry'
 
-	runtimeOnly 'org.flywaydb:flyway-core'
-	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.flywaydb:flyway-core' // 마이그레이션을 통해 데이터베이스 버전 관리할 수 있는 기능 제공
+	runtimeOnly 'org.postgresql:postgresql' // 애플리케이션이 postgresql 데이터베이스에 연결할 수 있게 해주는 jdbc 드라이버
 	runtimeOnly 'org.postgresql:r2dbc-postgresql'
-	runtimeOnly 'org.springframework:spring-jdbc'
+	runtimeOnly 'org.springframework:spring-jdbc' // jdbc api와 스프링의 통합을 제공한다. 스프링 프레임워크의 일부로 스프링 데이터 jdbc와 혼동하지 말아야 한다.
 
 	// Only on Apple Silicon. Why it's necessary: https://github.com/netty/netty/issues/11020
 	// runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.101.Final:osx-aarch_64'

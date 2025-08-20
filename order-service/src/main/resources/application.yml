@@ -15,13 +15,13 @@ spring:
     password: password
     url: r2dbc:postgresql://localhost:5432/polardb_order
     pool:
-      max-create-connection-time: 2s
-      initial-size: 5
-      max-size: 10
+      max-create-connection-time: 2s # 풀에서 연결 객체 하나를 얻을 때 까지 기다릴수있는 최대한의 시간
+      initial-size: 5 # 연결 풀의 초기 크기
+      max-size: 10 # 풀이 최대한으로 가질 수 있는 연결의 수
   flyway:
-    user: ${spring.r2dbc.username}
-    password: ${spring.r2dbc.password}
-    url: jdbc:postgresql://localhost:5432/polardb_order
+    user: ${spring.r2dbc.username} # R2DBC에 대해 설정한 값과 같은 유저명 사용
+    password: ${spring.r2dbc.password} # R2DBC에 대해 설정한 값과 같은 패스워드 사용
+    url: jdbc:postgresql://localhost:5432/polardb_order # R2DBC에 대해 설정한 데이터베이스와 같은 데이터베이스를 연결하기 위해 JDBC 드라이버 사용
   config:
     import: "optional:configserver:"
   cloud:
