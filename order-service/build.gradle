@@ -44,7 +44,7 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' // 스프링 테스트, juinit, 어서트j, 모티토를 포함해 애플리케이션을 테스트할수있는 여러 라이브러리 및 유틸리티를 제공, 모든 스피링부트 프로젝트에 자동으로 포함
 	testImplementation 'io.projectreactor:reactor-test' // 프로젝트 리액터를 기반으로 작성된 리액티브 애플리케이션을 테스트하기 위한 유틸리티를 제공
-	testImplementation 'com.squareup.okhttp3:mockwebserver'
+	testImplementation 'com.squareup.okhttp3:mockwebserver' // 주문 서비스에서 OkHttp의 MockWebServer에 대한 테스트 의존성 추가
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:postgresql'
 	testImplementation 'org.testcontainers:r2dbc' // 경량 도커 컨테이너를 사용해 애플리케이션을 테스트하기 위해 필요한 라이브러리를 제공한다. 특히 r2dbc 드라이버를 지원하는 postgresql용 테스트 컨테이너를 제공한다.
