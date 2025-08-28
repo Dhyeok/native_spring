@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 @Configuration
 public class WebEndpoints {
 
-	@Bean
+	@Bean // 함수형 rest 엔드포인트가 빈 내부에서 정의
 	public RouterFunction<ServerResponse> routerFunction() {
 		return RouterFunctions.route()
 				.GET("/catalog-fallback", request ->

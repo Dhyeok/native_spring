@@ -24,28 +24,28 @@ spring:
         max-interval: 2000 # 2s
         multiplier: 1.1
     gateway:
-      httpclient:
-        connect-timeout: 2000 # 2s
-        response-timeout: 5s
-        pool:
-          type: elastic
-          max-idle-time: 15s
-          max-life-time: 60s
-      default-filters:
-        - SaveSession
+      httpclient: # 게이트웨이 http 클라이언트에 대한 타임아웃 설정, http 클라이언트에 대한 설정 속성
+        connect-timeout: 2000 # 2s # 연결을 수립하기까지의 타임아웃(밀리초)
+        response-timeout: 5s # 응답을 받을 때 까지 타임아웃(기간)
+        pool: # 네티 http 클라이언트는 탄력 연결 풀을 사용해 워크로드가 증가함에 따라 동시 연결수를 동적으로 늘릴 수 있음, 동시에 받는 요청 수에 따라 고정 연결풀로 전환해 연결 수에 대한 제어를 좀더 많이 할 수 도 있다.
+          type: elastic # 연결 풀 유형(elastic, fixed, disabled)
+          max-idle-time: 15s # 통신 채널이 닫히기 전 대기하는 시간
+          max-life-time: 60s # 통신 채널이 열려있는 기간
+      default-filters: # 기본 필터 목록
+        - SaveSession # 요청을 서비스로 전달하기 전에 세션 데이터를 저장한다.
         - name: RequestRateLimiter
           args:
             redis-rate-limiter:
-              replenishRate: 10
-              burstCapacity: 20
-              requestedTokens: 1
+              replenishRate: 10 # 초당 버킷에 떨어지는 토큰의 수
+              burstCapacity: 20 # 최대 20개 요청까지 허용
+              requestedTokens: 1 # 하나의 요청 처리에 몇 개의 토큰이 사용되는지 지정
         - name: Retry
           args:
             retries: 3
-            methods: GET
-            series: SERVER_ERROR
-            exceptions: java.io.IOException, java.util.concurrent.TimeoutException
-            backoff:
+            methods: GET # GET 요청만 재시도
+            series: SERVER_ERROR # 5xx 오류에 대해서만 재시도
+            exceptions: java.io.IOException, java.util.concurrent.TimeoutException # 지정한 예외가 발생할 때만 재시도
+            backoff: # 재시도는 firstbackoff * (factor^n) 공식을 사용해 계산
               firstBackoff: 50ms
               maxBackOff: 500ms
               factor: 2
@@ -59,7 +59,7 @@ spring:
             - name: CircuitBreaker
               args:
                 name: catalogCircuitBreaker
-                fallbackUri: forward:/catalog-fallback
+                fallbackUri: forward:/catalog-fallback # 회로가 개방 상태일 때 요청을 이 uri로 전달
         - id: order-route
           uri: ${ORDER_SERVICE_URL:http://localhost:9002}/orders # uri 같은 환경변수로부터 오거나 해당 환경 변수가 없는 경우 기본값을 사용한다.
           predicates:
@@ -69,10 +69,10 @@ spring:
               args:
                 name: orderCircuitBreaker
   redis:
-    connect-timeout: 2s
-    host: localhost
-    port: 6379
-    timeout: 1s
+    connect-timeout: 2s # 연결이 수립되기까지 기다리는 시간의 한도
+    host: localhost # 레디스 호스트 기본값
+    port: 6379 # 레디스 포트 기본값
+    timeout: 1s # 응답을 받기까지 기다리는 시간의 한도
   session:
     store-type: redis
     timeout: 10m
@@ -82,16 +82,16 @@ spring:
 resilience4j:
   circuitbreaker:
     configs:
-      default:
-        slidingWindowSize: 20
-        permittedNumberOfCallsInHalfOpenState: 5
-        failureRateThreshold: 50
-        waitDurationInOpenState: 15000
+      default: # 모든 서킷 브레이커에 대한 기본 설정
+        slidingWindowSize: 20 # 회로가 폐쇄된 상태일 때 호출의 결과를 기록하는데 사용하는 슬라이딩 윈도의 크기
+        permittedNumberOfCallsInHalfOpenState: 5 # 회로가 반개방 상태일 때 허용되는 호출의 수
+        failureRateThreshold: 50 # 실패율이 임계값 이상이면 회로는 개방 상태로 바뀐다.
+        waitDurationInOpenState: 15000 # 개방 상태에서 반개방 상태로 가기까지 기다릴 시간(밀리초)
   timelimiter:
     configs:
-      default:
-        timeoutDuration: 5s
+      default: # 모든 시간 제한에 대한 기본 설정
+        timeoutDuration: 5s # 타임아웃 설정
 
-#logging:
-#  level:
-#    io.github.resilience4j: DEBUG
+logging:
+  level:
+    io.github.resilience4j: DEBUG
