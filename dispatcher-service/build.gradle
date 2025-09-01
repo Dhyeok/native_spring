@@ -20,7 +20,7 @@ ext {
 
 dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter'
-	//implementation 'org.springframework.cloud:spring-cloud-function-context'
+	//implementation 'org.springframework.cloud:spring-cloud-function-context'  // 함수를 사용한 비즈니스 로직 구현을 지원하는 스프링 클라우드 함수 라이브러리를 제공한다.
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
 	implementation 'org.springframework.retry:spring-retry'
