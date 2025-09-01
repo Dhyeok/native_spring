@@ -17,17 +17,17 @@ import org.springframework.messaging.Message;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Import(TestChannelBinderConfiguration.class)
+@Import(TestChannelBinderConfiguration.class) // 테스트 빌더 설정
 class FunctionsStreamIntegrationTests {
 
 	@Autowired
-	private InputDestination input;
+	private InputDestination input; // 입력 바인딩 packlabel-in-0을 나타낸다.
 
 	@Autowired
-	private OutputDestination output;
+	private OutputDestination output; // 출력 바인딩 packlabel-out-0을 나타낸다.
 
 	@Autowired
-	private ObjectMapper objectMapper;
+	private ObjectMapper objectMapper; // JSON 메시지 페이로드를 자바 객체로 역직렬화하기 위해 잭슨을 사용한다.
 
 	@Test
 	void whenOrderAcceptedThenDispatched() throws IOException {
@@ -37,9 +37,9 @@ class FunctionsStreamIntegrationTests {
 		Message<OrderDispatchedMessage> expectedOutputMessage = MessageBuilder
 				.withPayload(new OrderDispatchedMessage(orderId)).build();
 
-		this.input.send(inputMessage);
+		this.input.send(inputMessage); // 입력 채널로 메시지를 보낸다.
 		assertThat(objectMapper.readValue(output.receive().getPayload(), OrderDispatchedMessage.class))
-				.isEqualTo(expectedOutputMessage.getPayload());
+				.isEqualTo(expectedOutputMessage.getPayload()); // 출력 채널로부터 메시지를 받아서 확인한다.
 	}
 
 }

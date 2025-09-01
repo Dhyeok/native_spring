@@ -30,6 +30,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation' // 자바 빈 유효성 검사 api를 사용해 객체의 유효성 검사를 할 때 필요한 라이브러리를 제공
 	implementation 'org.springframework.boot:spring-boot-starter-webflux' // 스프링 웹플럭스를 통해 리액티브 웹 애플리케이션을 구축하기 위한 라이브러리를 제공하며 네티를 기본 임베디드 서버로 포함
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
 	implementation 'org.springframework.retry:spring-retry'
 
 	runtimeOnly 'org.flywaydb:flyway-core' // 마이그레이션을 통해 데이터베이스 버전 관리할 수 있는 기능 제공
@@ -48,6 +49,14 @@ dependencies {
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:postgresql'
 	testImplementation 'org.testcontainers:r2dbc' // 경량 도커 컨테이너를 사용해 애플리케이션을 테스트하기 위해 필요한 라이브러리를 제공한다. 특히 r2dbc 드라이버를 지원하는 postgresql용 테스트 컨테이너를 제공한다.
+	testImplementation("org.springframework.cloud:spring-cloud-stream") {
+		artifact {
+			name = "spring-cloud-stream"
+			extension = "jar"
+			type ="test-jar"
+			classifier = "test-binder"
+		}
+	}
 }
 
 dependencyManagement {

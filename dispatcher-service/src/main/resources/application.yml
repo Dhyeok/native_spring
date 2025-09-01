@@ -20,12 +20,12 @@ spring:
     function:
       definition: pack|label
     stream:
-      bindings:
-        packlabel-in-0:
-          destination: order-accepted
-          group: ${spring.application.name}
-        packlabel-out-0:
-          destination: order-dispatched
+      bindings: # 대산 바인딩 설정을 위한 섹션
+        packlabel-in-0: # 입력 바인딩
+          destination: order-accepted # 바인더를 연결할 대상의 브로커 내에서의 실제 이름(rabbitMQ 익스체인지)
+          group: ${spring.application.name} # 대상에 관심을 갖는 소비자 그룹(애플리케이션 이름과 동일)
+        packlabel-out-0: # 출력 바인딩
+          destination: order-dispatched # 바인더를 연결할 대상의 브로커 내에서의 실제 이름(rabbitMQ 익스체인지)
   rabbitmq:
     host: localhost
     port: 5672

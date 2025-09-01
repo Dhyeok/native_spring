@@ -35,6 +35,26 @@ spring:
         initial-interval: 1000 # 1s
         max-interval: 2000 # 2s
         multiplier: 1.1
+    function:
+      definition: dispatchOrder # 스프링 클라우드 함수에 의해 관리될 함수 정의
+    stream:
+      bindings:
+        dispatchOrder-in-0: # 입력 바인딩
+          destination: order-dispatched # 바인더를 연결할 대상의 브로커에서의 실제 이름(rabbitmq의 익스체인지)
+          group: ${spring.application.name} # 대상을 통해 메시지를 수신할 소비자 그룹(애플리케이션 이름을 사용)
+        acceptOrder-out-0: # StreamBridge에 의해 생성되고 관리되는 출력 바인딩
+          destination: order-accepted # 바인더를(rabbitmq 익스체인지에) 연결할 대상의 브로커에서의 실제 이름
+      rabbit: # 스프링 클라우드 스트림 바인딩에 대한 래빗mq 설정
+        bindings:
+          acceptOrder-out-0:
+            producer:
+              transacted: true # acceptOrder-ou-0 바인딩에 대한 트랜잭션 지원 활성화
+  rabbitmq: # rabbitmq와의 통합 설정
+    host: localhost
+    port: 5672
+    username: user
+    password: password
+    connection-timeout: 5s
 
 polar:
   catalog-service-uri: "http://localhost:9001"
